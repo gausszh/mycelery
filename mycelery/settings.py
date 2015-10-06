@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'djcelery',
+    'cacheback',
     'main',
 )
 
@@ -67,9 +68,9 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-cn'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Chongqing'
 
 USE_I18N = True
 
@@ -83,6 +84,43 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format' : "[%(asctime)s] [pid:%(process)d] [%(name)s] %(levelname)s [%(pathname)s:%(lineno)s] %(message)s",
+            'datefmt' : "%Y-%m-%d %H:%M:%S"
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs/all.log'),
+            'formatter': 'verbose'
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers':['file'],
+            'propagate': False,
+            'level':'DEBUG',
+        },
+        'cacheback': {
+            'handlers':['file'],
+            'propagate': False,
+            'level':'INFO',
+        },
+        '': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+
+    }
+}
 
 import djcelery
 djcelery.setup_loader()
@@ -103,3 +141,13 @@ CELERY_QUEUES = (
 CELERY_DEFAULT_EXCHANGE = 'mycelery'
 # CELERY_DEFAULT_EXCHANGE_TYPE = 'direct'
 CELERY_DEFAULT_ROUTING_KEY = 'mycelery'
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}
+
+
+CELERYD_LOG_FILE = "ss.log"
