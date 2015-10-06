@@ -1,9 +1,10 @@
 # coding=utf8
-from celery import shared_task
+# from celery import shared_task
+from celery.task import task
 import requests
 
 
-@shared_task
+@task()
 def document_length(p):
     """
     get url document, cal size
