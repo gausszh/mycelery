@@ -90,8 +90,8 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
-            'format' : "[%(asctime)s] [pid:%(process)d] [%(name)s] %(levelname)s [%(pathname)s:%(lineno)s] %(message)s",
-            'datefmt' : "%Y-%m-%d %H:%M:%S"
+            'format': "[%(asctime)s] [pid:%(process)d] [%(name)s] %(levelname)s %(message)s [%(pathname)s:%(lineno)s]",
+            'datefmt': "%Y-%m-%d %H:%M:%S"
         },
     },
     'handlers': {
@@ -104,14 +104,14 @@ LOGGING = {
     },
     'loggers': {
         'django': {
-            'handlers':['file'],
+            'handlers': ['file'],
             'propagate': False,
-            'level':'DEBUG',
+            'level': 'DEBUG',
         },
         'cacheback': {
-            'handlers':['file'],
+            'handlers': ['file'],
             'propagate': False,
-            'level':'INFO',
+            'level': 'INFO',
         },
         '': {
             'handlers': ['file'],
@@ -151,3 +151,6 @@ CACHES = {
 
 
 CELERYD_LOG_FILE = "ss.log"
+CELERYD_HIJACK_ROOT_LOGGER = False
+CELERYD_LOG_FORMAT = "[%(asctime)s] [pid:%(process)d] [%(name)s] %(levelname)s %(message)s [%(pathname)s:%(lineno)s]"
+CELERYD_TASK_LOG_FORMAT = CELERYD_LOG_FORMAT
