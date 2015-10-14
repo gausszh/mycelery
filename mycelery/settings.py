@@ -151,6 +151,6 @@ CACHES = {
 
 
 CELERYD_LOG_FILE = "ss.log"
-CELERYD_HIJACK_ROOT_LOGGER = False
+CELERYD_HIJACK_ROOT_LOGGER = False  # 这样就可以用LOGGING中的定义接管celery的日志
 CELERYD_LOG_FORMAT = "[%(asctime)s] [pid:%(process)d] [%(name)s] %(levelname)s %(message)s [%(pathname)s:%(lineno)s]"
 CELERYD_TASK_LOG_FORMAT = CELERYD_LOG_FORMAT
